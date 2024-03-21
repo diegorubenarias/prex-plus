@@ -4,14 +4,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 
   {
-    path: 'login',
-    loadChildren: () => import('./cinema/cinema.module').then( m => m.CinemaModule)
-  },
-  {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+    loadChildren: () => import('./cinema/cinema.module').then( m => m.CinemaModule)
+  }
 ];
 
 @NgModule({

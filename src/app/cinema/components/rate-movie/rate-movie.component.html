@@ -1,0 +1,7 @@
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let number of [0,1,2,3,4], let r = index">
+      <ion-icon [name]="r < rate ? 'star' : 'star-outline'" size="small"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-grid>
