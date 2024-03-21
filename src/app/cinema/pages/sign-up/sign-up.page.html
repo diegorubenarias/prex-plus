@@ -1,0 +1,79 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <form [formGroup]="form">
+      <ion-row>
+        <ion-col size="6"  offset="3">
+          <ion-row>
+          <ion-input
+            placeholder="Email"
+            formControlName="email"
+            fill="outline"
+            shape="round"
+            class="custom"></ion-input>
+          </ion-row>
+        <ion-row color="danger" *ngIf="invalidField('email')">
+          <ion-text >
+            Email is required
+          </ion-text>
+        </ion-row>
+        </ion-col>
+
+        <ion-col size="6"  offset="3">
+          <ion-input
+          placeholder="Confirm Email"
+          formControlName="emailConfirmation"
+          fill="outline"
+          shape="round"
+          class="custom"></ion-input>
+          <ion-row color="danger" *ngIf="invalidField('emailConfirmation')">
+            <ion-text >
+              Email is required
+            </ion-text>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6"  offset="3">
+          <ion-input
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          formControlName="password"
+          fill="outline"
+          shape="round"
+          class="custom">
+          <ion-icon
+          slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide">
+        </ion-icon></ion-input>
+          <ion-row color="danger" *ngIf="invalidField('password')">
+            <ion-text >
+              Email is required
+            </ion-text>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6"  offset="3">
+          <ion-input
+          [type]="hideConfirm ? 'password' : 'text'"
+          placeholder="Confirm Password"
+          formControlName="passwordConfirmation"
+          fill="outline"
+          shape="round"
+          class="custom">
+          <ion-icon
+          slot="end" [name]="hideConfirm ? 'eye-off' : 'eye'" (click)="hideConfirm = !hideConfirm">
+        </ion-icon></ion-input>
+          <ion-row color="danger" *ngIf="invalidField('passwordConfirmation')">
+            <ion-text >
+              Email is required
+            </ion-text>
+          </ion-row>
+        </ion-col>
+
+
+        <ion-col size="8"  offset="2">
+          <ion-button primary
+          [disabled]="form.invalid"
+          click="createAccount()">Create an account</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+</ion-content>

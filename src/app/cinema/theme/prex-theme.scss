@@ -1,0 +1,21 @@
+ion-input.custom,
+ion-input.custom:hover,
+ion-input.custom:focus,
+ion-input.custom.has-focus{
+  --background: transparent;
+  --color: #fff;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+
+  --border-color: #ddd;
+
+}
+
+span.custom {
+  --color: #ff0000;
+}
+
+img.custom {
+  border-radius: 10px;
+}
+
