@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CinemaService } from '../../services/cinema.service';
+import { Movie } from '../../model/movie.model';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  movies!: Movie[];
+  showEdit = false;
 
-  ngOnInit() {
+  constructor(
+    private service: CinemaService
+  ) { }
+
+  async ngOnInit() {
+    await this.service.getMovies().then((movies: Movie[]) => {
+
+      this.movies = movies;
+    });
+  }
+
+
+  goToDetail() {
+    //this.route.navigate(['edit', this.movie]);
   }
 
 }

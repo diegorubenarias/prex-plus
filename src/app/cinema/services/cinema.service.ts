@@ -1,76 +1,101 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Movie } from '../model/movie.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user.model';
+import { StorageService } from './storage.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CinemaService {
+export class CinemaService implements OnInit{
 
-  private _storage: Storage | null = null;
   private api: string;
-  private logo: string | null = null;
-  private cinemaUser!: User;
+  private loggedUser!: User;
   private originalMovies!: Movie[];
 
   constructor(
-    private storage: Storage,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private storageService: StorageService
   ) {
     this.api = environment.SERVER_API;
+
   }
 
-  init() {
-    return this.storage.create();
+  ngOnInit(): void {
+    this.httpClient.get(this.api).subscribe(res => this.storageService.set('movies', res));
   }
 
-  public set(key: string, value: any) {
-    this._storage?.set(key, value);
-  }
 
-  public get(key: string) {
-    return this._storage?.get(key);
-  }
 
-  initStorageApp() {
-    this.init().then(storage => {
-      this._storage = this.storage;
-
-    }).then( () =>
-      this.prepareLogo()
-    ).then(() => {
-      this.getMovies().subscribe(res => this.set('movies', res));
+  async getMovies() {
+    return await this.storageService.get('movies').then((movies: Movie[]) => {
+      if(!!movies && movies.length) {
+        return movies;
+      } else {
+        this.originalMovies = movies;
+        return this.originalMovies;
+      }
     });
   }
 
-  getMovies(): Observable<any> {
-    return this.httpClient.get(this.api);
-  }
-
-  prepareLogo() {
-    this.storage.get('logo').then(logo => {
-      if (!!logo) {
-        this.logo = logo;
-      } else {
-        this.storage.set('logo', '/assets/images/logo.png');
-      }
-    })
-  }
-
-  getLogo() {
-    return this.logo;
-  }
-
-  public signUp(username: string, password: string) {
-    this.storage.get('users')
+  public async signUp(username: string, password: string) {
+    return this.storageService.get('users')
       .then((users: any[]) => {
-        this.storage.set('users', users.push(new User(username, password)));
+        if(!!!users) {
+          this.storageService.set('users', []);
+          users = [];
+        }
+        const exist = users.find((user: User) => {
+          return user.username === username
+        });
 
-      })
+        if(!!!exist) {
+          users.push({username: username, password: password, movies: []});
+          this.storageService.set('users', users);
+          return {
+            success: true,
+            message: 'User create successfuly.'
+          }
+        } else {
+          return {
+            success: false,
+            message: 'user already exists'
+          }
+        }
+      });
   }
+
+  async login(username: string, password: string) {
+    return this.storageService.get('users')
+    .then((users: any[]) => {
+      if(!!!users) {
+        this.storageService.set('users', []);
+        users = [];
+      }
+      const exist = users.find((user: User) => {
+        return user.username === username
+      });
+
+      if(!!!exist) {
+        return {
+          success: false,
+          message: 'Something went worng. Please verify the credentials.'
+        }
+
+      } else {
+        this.loggedUser = exist;
+
+        return {
+          success: true,
+          message: 'User loggued successfuly.'
+        }
+
+      }
+    });
+  }
+
 }

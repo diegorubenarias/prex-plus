@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CinemaService } from './cinema/services/cinema.service';
+import { StorageService } from './cinema/services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,8 @@ import { CinemaService } from './cinema/services/cinema.service';
 })
 export class AppComponent {
   constructor(
-    private srv: CinemaService
+    private srv: StorageService
   ) {
-    this.srv.initStorageApp();
+    this.srv.init();
   }
 }
