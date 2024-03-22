@@ -1,31 +1,60 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { CinemaService } from '../../services/cinema.service';
+import { LogoService } from '../../services/logo.service';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
   styleUrls: ['./sign-up.page.scss', '../../theme/prex-theme.scss'],
 })
-export class SignUpPage implements OnInit, OnDestroy {
+export class SignUpPage implements OnInit {
 
   form!: FormGroup;
   hide = true;
   hideConfirm = true;
+  logo!: string;
+
+  toast: any;
+
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cinemaSRV: CinemaService,
+    private logoSrv: LogoService,
+    private toastController: ToastController,
+    private route: Router
   ) { }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
 
-  ngOnInit() {
+
+  async ngOnInit() {
+    this.logoSrv.getLogo().then(logo => this.logo = logo);
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       emailConfirmation: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
       passwordConfirmation: [null, [Validators.required]]
-    })
+
+    });
+    this.form.controls['emailConfirmation'].valueChanges.subscribe((value: any) => {
+      if (this.form.get('email')?.value !== this.form.get('emailConfirmation')?.value) {
+        this.form.controls['emailConfirmation'].setErrors({invalid: true});
+      } else {
+        this.form.controls['emailConfirmation'].setErrors(null);
+      }
+
+    });
+    this.form.controls['passwordConfirmation'].valueChanges.subscribe((value: any) => {
+      if (this.form.get('password')?.value !== this.form.get('passwordConfirmation')?.value) {
+        this.form.controls['passwordConfirmation'].setErrors({invalid: true});
+      } else {
+        this.form.controls['passwordConfirmation'].setErrors(null);
+      }
+
+    });
   }
 
   invalidField(field: string) {
@@ -35,8 +64,38 @@ export class SignUpPage implements OnInit, OnDestroy {
     );
   }
 
-  createAccount() {
+  async createAccount() {
+    await this.cinemaSRV.signUp(
+      this.form?.get('email')?.value,
+      this.form?.get('password')?.value
+    ).then((result: any) => {
+      if (result.error) {
+        this.presentToast('top', result.message);
+      } else {
+        this.route.navigate([""]);
+        this.presentToast('top', result.message);
+      }
+
+    });
 
   }
 
+  async presentToast(position: 'top' | 'middle' | 'bottom', message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+
+    await toast.present();
+  }
+
+  passwordMatch(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password')?.value !== c.get('confirm_password')?.value) {
+      console.log('password not match');
+        return {invalid: true};
+
+    }
+    return {invalid: false};
+  }
 }

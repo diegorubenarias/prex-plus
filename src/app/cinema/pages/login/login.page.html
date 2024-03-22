@@ -5,13 +5,9 @@
         <ion-col size="6"  offset="3" >
           <ion-img
             [src]="logo"
-            class="custom logo"
-        >
-
-    </ion-img>
-    <ion-icon
-    slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide">
-  </ion-icon>
+            class="custom logo">
+          </ion-img>
+          <ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
       </ion-col>
       </ion-row>
       <ion-row>
@@ -53,23 +49,18 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center">
-        <ion-col size="1">
+        <ion-col size="3"  >
+          <a routerLink="sign-up" class="register ion-text-center">Create an account</a>
+        </ion-col>
+        <ion-col size="3">
           <ion-button danger  [disabled]="form.invalid" (click)="login()">Sign In</ion-button>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="2"  >
-          <a routerLink="sign-up">Create an account</a>
-        </ion-col>
-      </ion-row>
+
+
+
     </form>
   </ion-grid>
-  <ion-footer>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="2"  >
-        <ion-nav-link>Create an account</ion-nav-link>
-      </ion-col>
-    </ion-row>
-  </ion-footer>
+
 
 </ion-content>

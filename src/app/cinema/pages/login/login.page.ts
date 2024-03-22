@@ -2,13 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CinemaService } from '../../services/cinema.service';
 import { Router } from '@angular/router';
+import { LogoService } from '../../services/logo.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss', '../../theme/prex-theme.scss'],
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements OnInit {
 
   form!: FormGroup;
   hide = true;
@@ -17,15 +19,13 @@ export class LoginPage implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private cinemaSrv: CinemaService,
-    private route: Router
+    private logoSrv: LogoService,
+    private route: Router,
+    private toastController: ToastController,
   ) { }
 
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  ngOnInit() {
-    this.logo = this.cinemaSrv.getLogo();
+   ngOnInit() {
+    this.logoSrv.getLogo().then(logo => this.logo = logo);
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
@@ -39,8 +39,26 @@ export class LoginPage implements OnInit, OnDestroy {
     );
   }
 
-  login() {
-    this.route.navigate(['home']);
+  async login() {
+    await this.cinemaSrv.login(this.form.get('email')?.value, this.form.get('password')?.value)
+    .then((res:any) => {
+      if(res.success) {
+        this.route.navigate(['home']);
+      } else {
+        this.presentToast('top', res.message);
+      }
+    })
+
+  }
+
+  async presentToast(position: 'top' | 'middle' | 'bottom', message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+
+    await toast.present();
   }
 
 }

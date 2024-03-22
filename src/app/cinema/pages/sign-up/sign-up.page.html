@@ -1,6 +1,14 @@
 <ion-content [fullscreen]="true">
+
   <ion-grid>
     <form [formGroup]="form">
+      <ion-col size="6"  offset="3" >
+        <ion-img
+          [src]="logo"
+          class="custom logo">
+        </ion-img>
+        <ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
+    </ion-col>
       <ion-row>
         <ion-col size="6"  offset="3">
           <ion-row>
@@ -61,16 +69,19 @@
         </ion-icon></ion-input>
           <ion-row color="danger" *ngIf="invalidField('passwordConfirmation')">
             <ion-text >
-              Email is required
+              Email confirmation is required and must match.
             </ion-text>
           </ion-row>
         </ion-col>
-
-
-        <ion-col size="8"  offset="2">
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" offset="3">
+          <ion-button color="light" routerLink="">Cancel</ion-button>
+        </ion-col>
+        <ion-col size="3" >
           <ion-button primary
           [disabled]="form.invalid"
-          click="createAccount()">Create an account</ion-button>
+          (click)="createAccount()">Create an account</ion-button>
         </ion-col>
       </ion-row>
     </form>

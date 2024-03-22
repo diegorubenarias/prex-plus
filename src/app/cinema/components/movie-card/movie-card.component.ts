@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../model/movie.model';
 import { Route, Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Route, Router } from '@angular/router';
 })
 export class MovieCardComponent  implements OnInit {
 
+  @Input()
   movie!: Movie;
   showEdit = false;
 
@@ -16,15 +17,10 @@ export class MovieCardComponent  implements OnInit {
     private route: Router
   ) { }
 
-  ngOnInit(
+  async ngOnInit(
 
   ) {
-    this.movie = {
-      name: 'Mision Imposible',
-      image: '/assets/images/impossible.jpg',
-      description: 'Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.',
-      rate: 2
-    }
+
   }
 
   goToDetail() {
