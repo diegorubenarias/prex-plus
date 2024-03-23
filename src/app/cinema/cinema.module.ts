@@ -9,6 +9,7 @@ import { HomePage } from './pages/home/home.page';
 import { RateMovieComponent } from './components/rate-movie/rate-movie.component';
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
+import { CustomLogoComponent } from './components/custom-logo/custom-logo.component';
 
 
 
@@ -19,7 +20,8 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
     HomePage,
     RateMovieComponent,
     MovieDetailComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    CustomLogoComponent
   ],
   imports: [
     CommonModule,

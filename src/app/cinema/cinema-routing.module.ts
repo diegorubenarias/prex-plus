@@ -5,6 +5,7 @@ import { LoginPage } from './pages/login/login.page';
 import { SignUpPage } from './pages/sign-up/sign-up.page';
 import { HomePage } from './pages/home/home.page';
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
+import { CustomLogoComponent } from './components/custom-logo/custom-logo.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'edit',
     component: MovieDetailComponent
+  },
+  {
+    path: 'custom-logo',
+    component: CustomLogoComponent
   }
 
 
