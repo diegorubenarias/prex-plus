@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class StorageService {
     private storage: Storage,
   ) { }
 
-  async init() {
-    await this.storage.create().then(st => this._storage = st);
+  init(): Observable<any> {
+    return from(this.storage.create().then(st => this._storage = st));
   }
 
   public set(key: string, value: any) {

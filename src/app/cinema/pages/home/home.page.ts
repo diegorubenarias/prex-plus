@@ -16,9 +16,8 @@ export class HomePage implements OnInit {
     private service: CinemaService
   ) { }
 
-  async ngOnInit() {
-    await this.service.getMovies().then((movies: Movie[]) => {
-
+   ngOnInit() {
+    this.service.getMovies().subscribe((movies: Movie[]) => {
       this.movies = movies;
     });
   }

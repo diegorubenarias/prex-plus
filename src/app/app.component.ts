@@ -9,7 +9,7 @@ import { StorageService } from './cinema/services/storage.service';
 })
 export class AppComponent {
   constructor(
-    private srv: StorageService
+    private srv: CinemaService
   ) {
     this.srv.init();
   }

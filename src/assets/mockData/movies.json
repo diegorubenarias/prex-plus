@@ -7,43 +7,43 @@
     "rate": 0
   },{
     "id": 2,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Lying Wife",
+    "image": "/assets/images/esposa.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 2
 
   },{
     "id": 3,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Transilvania Hotel",
+    "image": "/assets/images/hotel_transilvania.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 4
 
   },{
     "id": 4,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Jumanji",
+    "image": "/assets/images/jumanji.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 3
 
   },{
     "id": 5,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Marvels",
+    "image": "/assets/images/marvel.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 1
 
   },{
     "id": 6,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Toy Story",
+    "image": "/assets/images/toy_story.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 0
 
   },{
     "id": 7,
-    "name": "Mision Imposible",
-    "image": "/assets/images/impossible.jpg",
+    "name": "Smile",
+    "image": "/assets/images/smile.jpg",
     "description": "Lorem ipsum is placeholder text commonly used in the graphic and visual mockups.",
     "rate": 0
 

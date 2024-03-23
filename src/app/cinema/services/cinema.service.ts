@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Observable, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { Movie } from '../model/movie.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -26,24 +26,28 @@ export class CinemaService implements OnInit{
   }
 
   ngOnInit(): void {
-    this.httpClient.get(this.api).subscribe(res => this.storageService.set('movies', res));
+
   }
 
+  init() {
+    this.storageService.init().subscribe((res) => {
+      this.httpClient.get(this.api).subscribe(res => this.storageService.set('movies', res));
+    });
+  }
 
-
-  async getMovies() {
-    return await this.storageService.get('movies').then((movies: Movie[]) => {
+   getMovies() {
+    return from(this.storageService.get('movies').then((movies: Movie[]) => {
       if(!!movies && movies.length) {
         return movies;
       } else {
         this.originalMovies = movies;
         return this.originalMovies;
       }
-    });
+    }));
   }
 
-  public async signUp(username: string, password: string) {
-    return this.storageService.get('users')
+  public signUp(username: string, password: string) {
+    return from(this.storageService.get('users')
       .then((users: any[]) => {
         if(!!!users) {
           this.storageService.set('users', []);
@@ -66,11 +70,11 @@ export class CinemaService implements OnInit{
             message: 'user already exists'
           }
         }
-      });
+      }));
   }
 
-  async login(username: string, password: string) {
-    return this.storageService.get('users')
+  login(username: string, password: string): Observable<any> {
+    return from(this.storageService.get('users')
     .then((users: any[]) => {
       if(!!!users) {
         this.storageService.set('users', []);
@@ -95,7 +99,7 @@ export class CinemaService implements OnInit{
         }
 
       }
-    });
+    }));
   }
 
 }

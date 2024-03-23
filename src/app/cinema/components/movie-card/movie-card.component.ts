@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '../../model/movie.model';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -14,17 +14,10 @@ export class MovieCardComponent  implements OnInit {
   showEdit = false;
 
   constructor(
-    private route: Router
   ) { }
 
-  async ngOnInit(
+  ngOnInit() {}
 
-  ) {
 
-  }
-
-  goToDetail() {
-    this.route.navigate(['edit', this.movie]);
-  }
 
 }

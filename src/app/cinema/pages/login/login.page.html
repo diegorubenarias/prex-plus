@@ -3,11 +3,18 @@
     <form [formGroup]="form">
       <ion-row>
         <ion-col size="6"  offset="3" >
-          <ion-img
-            [src]="logo"
-            class="custom logo">
-          </ion-img>
-          <ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
+          <ion-row >
+            <ion-avatar>
+              <ion-img
+              [src]="logo"
+              class="custom logo"
+              >
+            </ion-img>
+          </ion-avatar>
+          <ion-button *ngIf="!hide" value="Edit"><ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon></ion-button>
+
+        </ion-row>
+
       </ion-col>
       </ion-row>
       <ion-row>

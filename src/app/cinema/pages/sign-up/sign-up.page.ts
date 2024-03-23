@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { CinemaService } from '../../services/cinema.service';
 import { LogoService } from '../../services/logo.service';
 import { ToastController } from '@ionic/angular';
@@ -30,8 +29,10 @@ export class SignUpPage implements OnInit {
   ) { }
 
 
-  async ngOnInit() {
-    this.logoSrv.getLogo().then(logo => this.logo = logo);
+  ngOnInit() {
+    this.logoSrv.getLogo().subscribe((logo: any) => {
+      this.logo = logo
+    });
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       emailConfirmation: [null, [Validators.required, Validators.email]],
@@ -64,11 +65,11 @@ export class SignUpPage implements OnInit {
     );
   }
 
-  async createAccount() {
-    await this.cinemaSRV.signUp(
+  createAccount() {
+    this.cinemaSRV.signUp(
       this.form?.get('email')?.value,
       this.form?.get('password')?.value
-    ).then((result: any) => {
+    ).subscribe((result: any) => {
       if (result.error) {
         this.presentToast('top', result.message);
       } else {
