@@ -1,3 +1,49 @@
-<p>
-  movie-detail works!
-</p>
+<ion-content>
+  <ion-grid size="6" >
+    <ion-row>
+      <ion-col >
+        <ion-img
+            [src]="movie.image"
+            class="custom"
+        > </ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h2>{{movie.name}}</h2>
+    </ion-row>
+    <div *ngIf="!edit">
+      <ion-row>
+        <p>{{movie.description}}</p>
+      </ion-row>
+      <ion-row>
+        <h3>Rate:</h3>
+      </ion-row>
+      <ion-row>
+        <app-rate-movie [rate]="movie.rate"></app-rate-movie>
+      </ion-row>
+    </div>
+
+    <div *ngIf="edit" >
+      <ion-row>
+        <ion-text-area [(ngModel)]="movie.description" ngDefaultControl value="movie.description"></ion-text-area>
+      </ion-row>
+      <ion-row>
+        <h3>Rate:</h3>
+      </ion-row>
+      <ion-row>
+        <app-rate-movie [rate]="movie.rate"></app-rate-movie>
+      </ion-row>
+    </div>
+
+
+    <ion-row>
+      <ion-col>
+        <a routerLink="/home">Cancel</a>
+      </ion-col>
+      <ion-col>
+        <ion-button *ngIf="!edit" (click)="editMovie()">Edit</ion-button>
+        <ion-button *ngIf="edit" (click)="edit = ! edit">Save</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

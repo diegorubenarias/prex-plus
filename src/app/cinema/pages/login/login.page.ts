@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   ) { }
 
    ngOnInit() {
-    this.logoSrv.getLogo().then(logo => this.logo = logo);
+    this.logoSrv.getLogo().subscribe((logo: any) => this.logo = logo);
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
@@ -39,9 +39,9 @@ export class LoginPage implements OnInit {
     );
   }
 
-  async login() {
-    await this.cinemaSrv.login(this.form.get('email')?.value, this.form.get('password')?.value)
-    .then((res:any) => {
+  login() {
+    this.cinemaSrv.login(this.form.get('email')?.value, this.form.get('password')?.value)
+    .subscribe((res:any) => {
       if(res.success) {
         this.route.navigate(['home']);
       } else {

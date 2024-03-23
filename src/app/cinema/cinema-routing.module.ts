@@ -5,7 +5,7 @@ import { LoginPage } from './pages/login/login.page';
 import { SignUpPage } from './pages/sign-up/sign-up.page';
 import { HomePage } from './pages/home/home.page';
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
-import { StoreModule, provideState } from '@ngrx/store';
+
 
 const routes: Routes = [
   {

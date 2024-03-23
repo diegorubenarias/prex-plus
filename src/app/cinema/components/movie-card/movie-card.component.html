@@ -1,50 +1,40 @@
+<ion-card class="movie-card" color="light" (mouseenter)="showEdit = !showEdit" (mouseleave)="showEdit = !showEdit">
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" >
+          <ion-img
+            [src]="movie.image"
+            class="custom"
+        > </ion-img>
 
-<ion-content class="movie">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6">
-        <ion-card class="movie-card" color="light" (mouseenter)="showEdit = !showEdit" (mouseleave)="showEdit = !showEdit">
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="6" >
-                  <ion-img
-                    [src]="movie.image"
-                    class="custom"
-                > </ion-img>
-
-                </ion-col>
-                <ion-col [size]="showEdit? 3 : 6">
-                  <ion-grid>
-                    <ion-row>
-                      <h2>{{movie.name}}</h2>
-                    </ion-row>
-                    <ion-row>
-                      <p>{{movie.description}}</p>
-                    </ion-row>
-                    <ion-row>
-                      <h3>Rate:</h3>
-                    </ion-row>
-                    <ion-row>
-                      <app-rate-movie [rate]="movie.rate"></app-rate-movie>
-                    </ion-row>
-                  </ion-grid>
-                </ion-col>
-                <ion-col size="3" *ngIf="showEdit">
-                  <ion-card color="primary">
-                    <ion-card-content>
-                      <a (click)="goToDetail()">Edit</a>
-                    </ion-card-content>
-                  </ion-card>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+        </ion-col>
+        <ion-col [size]="showEdit? 3 : 6">
+          <ion-grid>
+            <ion-row>
+              <h2>{{movie.name}}</h2>
+            </ion-row>
+            <ion-row>
+              <p>{{movie.description}}</p>
+            </ion-row>
+            <ion-row>
+              <h3>Rate:</h3>
+            </ion-row>
+            <ion-row>
+              <app-rate-movie [rate]="movie.rate"></app-rate-movie>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <ion-col size="3" *ngIf="showEdit">
+          <ion-card color="primary">
+            <ion-card-content>
+              <a [routerLink]="['/edit', movie]">Edit</a>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-</ion-content>
+  </ion-card-content>
+</ion-card>
