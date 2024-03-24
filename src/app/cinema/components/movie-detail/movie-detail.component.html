@@ -19,7 +19,7 @@
         <h3>Rate:</h3>
       </ion-row>
       <ion-row>
-        <app-rate-movie [rate]="movie.rate"></app-rate-movie>
+        <app-rate-movie [rate]="movie.rate" [editRate]="edit"></app-rate-movie>
       </ion-row>
     </div>
 
@@ -31,7 +31,7 @@
         <h3>Rate:</h3>
       </ion-row>
       <ion-row>
-        <app-rate-movie [rate]="movie.rate"></app-rate-movie>
+        <app-rate-movie [rate]="movie.rate" (changeRate)="updateRate($event)" [editRate]="edit"></app-rate-movie>
       </ion-row>
     </div>
 
@@ -42,6 +42,7 @@
       </ion-col>
       <ion-col>
         <ion-button *ngIf="!edit" (click)="edit = ! edit">Edit</ion-button>
+        <ion-button *ngIf="edit" (click)="edit = ! edit">Cancel</ion-button>
         <ion-button *ngIf="edit" (click)="editMovie()">Save</ion-button>
       </ion-col>
     </ion-row>

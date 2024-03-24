@@ -1,7 +1,13 @@
 <ion-grid>
-  <ion-row>
+  <ion-row *ngIf="!editRate">
     <ion-col *ngFor="let number of [0,1,2,3,4], let r = index">
       <ion-icon [name]="r < rate ? 'star' : 'star-outline'" size="small"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="editRate">
+    <ion-col *ngFor="let number of [0,1,2,3,4], let r = index">
+      <ion-icon [name]="r < hRate ? 'star' : 'star-outline'" size="small" (click)="saveRate(r)"
+      (mouseenter)="prepareRate(r)" (mouseleave)="restoreRate(r)"></ion-icon>
     </ion-col>
   </ion-row>
 </ion-grid>
