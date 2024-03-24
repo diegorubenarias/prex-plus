@@ -1,20 +1,20 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <form [formGroup]="form">
-      <ion-row>
+      <ion-row text-center>
         <ion-col size="6"  offset="3" >
-          <ion-row >
+          <ion-row class="logo-row" *ngIf="!changeLogo">
             <ion-avatar>
-              <ion-img
-              *ngIf="!changeLogo"
+              <ion-img              
               [src]="logo"
               class="custom logo"
               (mouseenter)="changeLogo = !changeLogo"
               >
-            </ion-img>
-          </ion-avatar>
-
-          <a *ngIf="changeLogo" (mouseleave)="changeLogo = !changeLogo" routerLink="/custom-logo" class="register ion-text-center">Change Logo</a>
+            </ion-img>            
+          </ion-avatar>          
+        </ion-row>
+        <ion-row class="logo-row" *ngIf="changeLogo">          
+          <a  (mouseleave)="changeLogo = !changeLogo" routerLink="/custom-logo" class="register ion-text-center" style="margin: 0 auto; margin-top: 5rem;color: red">Change Logo</a>    
         </ion-row>
 
       </ion-col>
@@ -62,7 +62,7 @@
           <a routerLink="sign-up" class="register ion-text-center">Create an account</a>
         </ion-col>
         <ion-col size="3">
-          <ion-button danger  [disabled]="form.invalid" (click)="login()">Sign In</ion-button>
+          <ion-button danger  class="login-button" [disabled]="form.invalid" (click)="login()">Sign In</ion-button>
         </ion-col>
       </ion-row>
 
