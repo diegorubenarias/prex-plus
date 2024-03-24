@@ -15,6 +15,7 @@ export class LoginPage implements OnInit, OnDestroy {
 
   form!: FormGroup;
   hide = true;
+  changeLogo  = false;
   public logo: string | null = null;
   logos!: any[];
 

@@ -25,7 +25,7 @@
 
     <div *ngIf="edit" >
       <ion-row>
-        <ion-text-area [(ngModel)]="movie.description" ngDefaultControl value="movie.description"></ion-text-area>
+        <ion-textarea [(ngModel)]="movie.description" ngDefaultControl value="movie.description"></ion-textarea>
       </ion-row>
       <ion-row>
         <h3>Rate:</h3>
@@ -38,11 +38,11 @@
 
     <ion-row>
       <ion-col>
-        <a routerLink="/home">Cancel</a>
+        <ion-button routerLink="/home">Back</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button *ngIf="!edit" (click)="editMovie()">Edit</ion-button>
-        <ion-button *ngIf="edit" (click)="edit = ! edit">Save</ion-button>
+        <ion-button *ngIf="!edit" (click)="edit = ! edit">Edit</ion-button>
+        <ion-button *ngIf="edit" (click)="editMovie()">Save</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

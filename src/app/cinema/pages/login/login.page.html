@@ -6,13 +6,15 @@
           <ion-row >
             <ion-avatar>
               <ion-img
+              *ngIf="!changeLogo"
               [src]="logo"
               class="custom logo"
+              (mouseenter)="changeLogo = !changeLogo"
               >
             </ion-img>
           </ion-avatar>
 
-          <a routerLink="/custom-logo" class="register ion-text-center">Change Logo</a>
+          <a *ngIf="changeLogo" (mouseleave)="changeLogo = !changeLogo" routerLink="/custom-logo" class="register ion-text-center">Change Logo</a>
         </ion-row>
 
       </ion-col>
