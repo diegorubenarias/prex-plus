@@ -47,6 +47,10 @@ export class MovieDetailComponent  implements OnInit, OnDestroy {
     this.edit = !this.edit;
   }
 
+  updateRate(value: number) {
+    console.log('updated ' + value);
+    this.movie.rate = value;
+  }
 
 
 }
