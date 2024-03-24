@@ -27,7 +27,7 @@ export class HomePage implements OnInit, OnChanges {
   }
 
 
-  goToDetail() {
+  logout() {
     //this.route.navigate(['edit', this.movie]);
   }
 
