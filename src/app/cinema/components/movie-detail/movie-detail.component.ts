@@ -1,14 +1,15 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Movie } from '../../model/movie.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CinemaService } from '../../services/cinema.service';
 
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss'],
 })
-export class MovieDetailComponent  implements OnInit, OnChanges {
+export class MovieDetailComponent  implements OnInit, OnDestroy {
 
   @Input()
   movie!: Movie;
@@ -18,11 +19,14 @@ export class MovieDetailComponent  implements OnInit, OnChanges {
 
   constructor(
     private router: ActivatedRoute,
+    private cinemaService: CinemaService
 
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+
+  ngOnDestroy(): void {
+
   }
+
 
   ngOnInit() {
     this.router.params.subscribe(params => {
@@ -39,8 +43,10 @@ export class MovieDetailComponent  implements OnInit, OnChanges {
   }
 
   editMovie() {
-
+    this.cinemaService.editMovie(this.movie);
     this.edit = !this.edit;
   }
+
+
 
 }

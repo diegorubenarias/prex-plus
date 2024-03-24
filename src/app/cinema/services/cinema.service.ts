@@ -14,7 +14,7 @@ import { StorageService } from './storage.service';
 export class CinemaService implements OnInit{
 
   private api: string;
-  private loggedUser!: User;
+  loggedUser!: User;
   private originalMovies!: Movie[];
 
   constructor(
@@ -38,7 +38,22 @@ export class CinemaService implements OnInit{
    getMovies() {
     return from(this.storageService.get('movies').then((movies: Movie[]) => {
       if(!!movies && movies.length) {
-        return movies;
+        this.originalMovies = movies;
+        movies.map((movie: Movie) => {
+          this.loggedUser.movies.find((m: Movie) => {
+            if(movie.id == m.id) {
+              this.originalMovies.splice(this.originalMovies.findIndex((u: Movie) => u.id === movie.id), 1);
+              this.originalMovies.unshift({
+                ... movie,
+                description: m.description,
+                rate: m.rate
+              });
+            }
+          });
+        });
+
+        return this.originalMovies;
+
       } else {
         this.originalMovies = movies;
         return this.originalMovies;
@@ -74,6 +89,7 @@ export class CinemaService implements OnInit{
   }
 
   login(username: string, password: string): Observable<any> {
+
     return from(this.storageService.get('users')
     .then((users: any[]) => {
       if(!!!users) {
@@ -91,8 +107,13 @@ export class CinemaService implements OnInit{
         }
 
       } else {
-        this.loggedUser = exist;
-
+        if (exist.password !== password) {
+          return {
+            success: false,
+            message: 'Incorrect username or password.'
+          }
+        }
+        this.setLogguedUser(exist);
         return {
           success: true,
           message: 'User loggued successfuly.'
@@ -100,6 +121,32 @@ export class CinemaService implements OnInit{
 
       }
     }));
+  }
+
+  setLogguedUser(user: User) {
+    this.loggedUser = user;
+  }
+
+  editMovie(movie: Movie) {
+    let userPreferences: User[];
+    this.storageService.get('users').then((users) => {
+      const user: User = users.find((u:any) => {return u.username === this.loggedUser.username});
+      const editMovie = user.movies.find((m) => { return m.id = movie.id });
+
+      if (!!editMovie ) {
+        user.movies.splice(user.movies.findIndex((m: Movie) => m.id === editMovie?.id),1);
+        user.movies.unshift(movie);
+      } else {
+
+        user.movies.push(movie);
+      }
+
+      users.splice(users.findIndex((u: User) => u.username === user.username),1);
+      users.unshift({username: user.username, password: user.password, movies: user.movies});
+      userPreferences = users;
+    }).then(() => this.storageService.set('users', userPreferences));
+
+
   }
 
 }

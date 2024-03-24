@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CinemaService } from '../../services/cinema.service';
 import { Movie } from '../../model/movie.model';
 
@@ -7,7 +7,7 @@ import { Movie } from '../../model/movie.model';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnChanges {
 
   movies!: Movie[];
   showEdit = false;
@@ -15,6 +15,10 @@ export class HomePage implements OnInit {
   constructor(
     private service: CinemaService
   ) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
    ngOnInit() {
     this.service.getMovies().subscribe((movies: Movie[]) => {

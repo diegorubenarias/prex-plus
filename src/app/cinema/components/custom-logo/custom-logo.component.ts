@@ -18,19 +18,16 @@ export class CustomLogoComponent  implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
-  ngOnDestroy(): void {
-
-
-  }
 
   ngOnInit() {
     this.logos=environment.APP_LOGOS
-
   }
 
   selectLogo(logoUrl: string) {
     this.logoSrv.setLogo(logoUrl);
     this.router.navigate(["/"]);
   }
+
+  ngOnDestroy(): void {}
 
 }
