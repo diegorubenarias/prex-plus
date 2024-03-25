@@ -8,9 +8,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+  <ion-grid [fixed]="true">
       <ion-row>
-        <ion-col size="4" *ngFor="let movie of movies">
+        <ion-col size="4" *ngFor="let movie of movies"
+       >
           <app-movie-card [movie]="movie"></app-movie-card>
         </ion-col>
       </ion-row>
