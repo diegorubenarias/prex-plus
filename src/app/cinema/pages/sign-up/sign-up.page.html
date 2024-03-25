@@ -2,13 +2,17 @@
 
   <ion-grid>
     <form [formGroup]="form">
-      <ion-col size="6"  offset="3" >
-        <ion-img
-          [src]="logo"
-          class="custom logo">
-        </ion-img>
-        <ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
-    </ion-col>
+      <ion-row text-center>
+        <ion-col size="6"  offset="3" >
+          <ion-avatar>
+          <ion-img
+            [src]="logo"
+            class="custom logo">
+          </ion-img>
+        </ion-avatar>
+          <ion-icon slot="end" [name]="hide ? 'eye-off' : 'eye'" (click)="hide = !hide"></ion-icon>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col size="6"  offset="3">
           <ion-row>
@@ -80,6 +84,7 @@
         </ion-col>
         <ion-col size="3" >
           <ion-button primary
+          class="singup-button"
           [disabled]="form.invalid"
           (click)="createAccount()">Create an account</ion-button>
         </ion-col>
