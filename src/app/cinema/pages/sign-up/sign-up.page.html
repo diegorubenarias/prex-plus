@@ -68,9 +68,10 @@
           fill="outline"
           shape="round"
           class="custom">
-          <ion-icon
-          slot="end" [name]="hideConfirm ? 'eye-off' : 'eye'" (click)="hideConfirm = !hideConfirm">
-        </ion-icon></ion-input>
+            <ion-icon
+            slot="end" [name]="hideConfirm ? 'eye-off' : 'eye'" (click)="hideConfirm = !hideConfirm">
+            </ion-icon>
+          </ion-input>
           <ion-row color="danger" *ngIf="invalidField('passwordConfirmation')">
             <ion-text >
               Email confirmation is required and must match.
